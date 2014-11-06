@@ -11,7 +11,7 @@
 
 @implementation Request
 
-@dynamic boolAttribute;
+@dynamic boolParameter;
 @dynamic message;
 @dynamic requestFormat;
 @dynamic status;

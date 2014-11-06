@@ -18,7 +18,7 @@
 		99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */; };
 		99F2E3A91A0B8D5500CB1156 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F2E3A81A0B8D5500CB1156 /* CoreData.framework */; };
 		99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */; };
-		99F2E3AF1A0BB69400CB1156 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3AE1A0BB69400CB1156 /* Request.m */; };
+		99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B51A0BBCEE00CB1156 /* Request.m */; };
 		D6D074E32B74D7F00A112CD7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E3F39BA16FD6744E93684 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +53,8 @@
 		99F2E3A81A0B8D5500CB1156 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		99F2E3AA1A0B8F7F00CB1156 /* TDADataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDADataManager.h; sourceTree = "<group>"; };
 		99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDADataManager.m; sourceTree = "<group>"; };
-		99F2E3AD1A0BB69400CB1156 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
-		99F2E3AE1A0BB69400CB1156 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		99F2E3B41A0BBCEE00CB1156 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		99F2E3B51A0BBCEE00CB1156 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		CA3E3F39BA16FD6744E93684 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D7907485BE67F037008CB4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,8 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */,
-				99F2E3AD1A0BB69400CB1156 /* Request.h */,
-				99F2E3AE1A0BB69400CB1156 /* Request.m */,
+				99F2E3B41A0BBCEE00CB1156 /* Request.h */,
+				99F2E3B51A0BBCEE00CB1156 /* Request.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 				99F2E3A41A0B7A6500CB1156 /* TDARequestsViewController.m in Sources */,
 				99869EF51A0A53F6009F9456 /* main.m in Sources */,
 				99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */,
-				99F2E3AF1A0BB69400CB1156 /* Request.m in Sources */,
+				99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
