@@ -21,6 +21,7 @@
 		99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B51A0BBCEE00CB1156 /* Request.m */; };
 		99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */; };
 		99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */; };
+		99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */; };
 		D6D074E32B74D7F00A112CD7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E3F39BA16FD6744E93684 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestSendingViewController.m; sourceTree = "<group>"; };
 		99F2E3BA1A0BC91000CB1156 /* TDAResponsesInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAResponsesInfoViewController.h; sourceTree = "<group>"; };
 		99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAResponsesInfoViewController.m; sourceTree = "<group>"; };
+		99F2E3BD1A0BFAEF00CB1156 /* TDARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestManager.h; sourceTree = "<group>"; };
+		99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestManager.m; sourceTree = "<group>"; };
 		CA3E3F39BA16FD6744E93684 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D7907485BE67F037008CB4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +125,8 @@
 				99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */,
 				99F2E3AA1A0B8F7F00CB1156 /* TDADataManager.h */,
 				99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */,
+				99F2E3BD1A0BFAEF00CB1156 /* TDARequestManager.h */,
+				99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */,
 				99869EF91A0A53F6009F9456 /* TDAViewController.h */,
 				99869EFA1A0A53F6009F9456 /* TDAViewController.m */,
 				99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */,
@@ -325,6 +330,7 @@
 				99F2E3A41A0B7A6500CB1156 /* TDARequestsListViewController.m in Sources */,
 				99869EF51A0A53F6009F9456 /* main.m in Sources */,
 				99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */,
+				99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */,
 				99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */,
 				99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */,
 			);
