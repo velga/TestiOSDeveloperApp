@@ -14,11 +14,13 @@
 		99869F001A0A53F6009F9456 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99869EFF1A0A53F6009F9456 /* Images.xcassets */; };
 		99869F031A0A53F6009F9456 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99869F011A0A53F6009F9456 /* LaunchScreen.xib */; };
 		99869F0F1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869F0E1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m */; };
-		99F2E3A41A0B7A6500CB1156 /* TDARequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A31A0B7A6500CB1156 /* TDARequestsViewController.m */; };
+		99F2E3A41A0B7A6500CB1156 /* TDARequestsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */; };
 		99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */; };
 		99F2E3A91A0B8D5500CB1156 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F2E3A81A0B8D5500CB1156 /* CoreData.framework */; };
 		99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */; };
 		99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B51A0BBCEE00CB1156 /* Request.m */; };
+		99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */; };
+		99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */; };
 		D6D074E32B74D7F00A112CD7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E3F39BA16FD6744E93684 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,14 +49,18 @@
 		99869F081A0A53F6009F9456 /* TestiOSDeveloperAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestiOSDeveloperAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99869F0D1A0A53F6009F9456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99869F0E1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestiOSDeveloperAppTests.m; sourceTree = "<group>"; };
-		99F2E3A21A0B7A6500CB1156 /* TDARequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestsViewController.h; sourceTree = "<group>"; };
-		99F2E3A31A0B7A6500CB1156 /* TDARequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestsViewController.m; sourceTree = "<group>"; };
+		99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestsListViewController.h; sourceTree = "<group>"; };
+		99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestsListViewController.m; sourceTree = "<group>"; };
 		99F2E3A61A0B85A500CB1156 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		99F2E3A81A0B8D5500CB1156 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		99F2E3AA1A0B8F7F00CB1156 /* TDADataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDADataManager.h; sourceTree = "<group>"; };
 		99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDADataManager.m; sourceTree = "<group>"; };
 		99F2E3B41A0BBCEE00CB1156 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		99F2E3B51A0BBCEE00CB1156 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		99F2E3B71A0BC88F00CB1156 /* TDARequestSendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestSendingViewController.h; sourceTree = "<group>"; };
+		99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestSendingViewController.m; sourceTree = "<group>"; };
+		99F2E3BA1A0BC91000CB1156 /* TDAResponsesInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAResponsesInfoViewController.h; sourceTree = "<group>"; };
+		99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAResponsesInfoViewController.m; sourceTree = "<group>"; };
 		CA3E3F39BA16FD6744E93684 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D7907485BE67F037008CB4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,8 +124,12 @@
 				99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */,
 				99869EF91A0A53F6009F9456 /* TDAViewController.h */,
 				99869EFA1A0A53F6009F9456 /* TDAViewController.m */,
-				99F2E3A21A0B7A6500CB1156 /* TDARequestsViewController.h */,
-				99F2E3A31A0B7A6500CB1156 /* TDARequestsViewController.m */,
+				99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */,
+				99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */,
+				99F2E3B71A0BC88F00CB1156 /* TDARequestSendingViewController.h */,
+				99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */,
+				99F2E3BA1A0BC91000CB1156 /* TDAResponsesInfoViewController.h */,
+				99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */,
 				99869EFC1A0A53F6009F9456 /* Main.storyboard */,
 				99869EFF1A0A53F6009F9456 /* Images.xcassets */,
 				99869F011A0A53F6009F9456 /* LaunchScreen.xib */,
@@ -311,10 +321,12 @@
 				99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */,
 				99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */,
 				99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */,
-				99F2E3A41A0B7A6500CB1156 /* TDARequestsViewController.m in Sources */,
+				99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */,
+				99F2E3A41A0B7A6500CB1156 /* TDARequestsListViewController.m in Sources */,
 				99869EF51A0A53F6009F9456 /* main.m in Sources */,
 				99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */,
 				99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */,
+				99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

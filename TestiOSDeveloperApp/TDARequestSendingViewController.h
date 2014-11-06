@@ -1,5 +1,5 @@
 //
-//  TDARequestsViewController.h
+//  TDARequestSendingViewController.h
 //  TestiOSDeveloperApp
 //
 //  Created by Vladislava Kirichenko on 11/6/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TDARequestsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TDARequestSendingViewController : UIViewController
 
 @end

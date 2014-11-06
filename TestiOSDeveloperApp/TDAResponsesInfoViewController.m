@@ -1,18 +1,18 @@
 //
-//  TDARequestsViewController.m
+//  TDAResponsesInfoViewController.m
 //  TestiOSDeveloperApp
 //
 //  Created by Vladislava Kirichenko on 11/6/14.
 //  Copyright (c) 2014 Vladislava Kirichenko. All rights reserved.
 //
 
-#import "TDARequestsViewController.h"
+#import "TDAResponsesInfoViewController.h"
 
-@interface TDARequestsViewController ()
+@interface TDAResponsesInfoViewController ()
 
 @end
 
-@implementation TDARequestsViewController
+@implementation TDAResponsesInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,27 +23,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - TableView Delegate
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"requestInfoCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-    }
-    
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-
 
 /*
 #pragma mark - Navigation
