@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Vladislava Kirichenko. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "TDAAppDelegate.h"
 
-@interface AppDelegate ()
+@interface TDAAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation TDAAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

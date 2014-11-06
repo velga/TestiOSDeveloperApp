@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Vladislava Kirichenko. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TDAViewController.h"
 
-@interface ViewController ()
+@interface TDAViewController ()
 
 @end
 
-@implementation ViewController
+@implementation TDAViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
