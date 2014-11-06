@@ -7,6 +7,7 @@
 //
 
 #import "TDAViewController.h"
+#import "TDADataManager.h"
 
 @interface TDAViewController ()
 
@@ -16,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [TDADataManager sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
