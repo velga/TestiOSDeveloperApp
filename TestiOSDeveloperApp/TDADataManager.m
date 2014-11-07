@@ -12,6 +12,7 @@
 @interface TDADataManager ()
 
 @property (retain, nonatomic, readwrite) NSManagedObjectContext *managedObjectContext;
+@property (retain, nonatomic, readwrite) NSManagedObjectModel *managedObjectModel;
 @property (retain, nonatomic, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
@@ -26,7 +27,6 @@
     static TDADataManager *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[TDADataManager alloc] init] retain];
-        [sharedInstance initCoreDataStack];
     });
     
     return sharedInstance;
@@ -37,61 +37,48 @@
 
 - (NSManagedObjectContext *)managedObjectContext
 {
-    NSAssert(self.persistentStoreCoordinator, @"Persistent store not initialized!");
+    if (!_managedObjectContext) {
+        NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+        
+        if (coordinator) {
+            _managedObjectContext = [[NSManagedObjectContext alloc] init];
+            [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+        }
+    }
     
-    static NSManagedObjectContext *moc = nil;
-    static dispatch_once_t onceToken = 0;
-    dispatch_once(&onceToken, ^{
-        NSManagedObjectContextConcurrencyType ccType = NSMainQueueConcurrencyType;
-        moc = [[[NSManagedObjectContext alloc] initWithConcurrencyType:ccType] retain];
-        [moc setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-    });
-    
-    return moc;
+    return _managedObjectContext;
 }
 
-- (void)initCoreDataStack
+- (NSManagedObjectModel *)managedObjectModel
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
-    NSAssert(modelURL, @"Failed to find model URL");
+    if (!_managedObjectModel) {
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+        NSAssert(modelURL, @"Failed to find model URL");
+        
+        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        NSAssert(_managedObjectModel, @"Failed to init model");
+    }
     
-    NSManagedObjectModel *mom = nil;
-    mom = [[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL] autorelease];
-    NSAssert(modelURL, @"Failed to init model");
-    
-    NSPersistentStoreCoordinator *coordinator = nil;
-    coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom] autorelease];
-    NSAssert(coordinator, @"Failed to init NSPersistentStoreCoordinator");
-    
-    dispatch_queue_t queue = NULL;
-    queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        NSURL *storeURL = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
-                                                   stringByAppendingPathComponent: @"TDADataBase.sqlite"]];
+    return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (!_persistentStoreCoordinator) {
+        NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"TDADataBase.sqlite"];
         
         NSError *error = nil;
-        NSPersistentStore *store = nil;
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        NSAssert(_persistentStoreCoordinator, @"Failed to init NSPersistentStoreCoordinator");
         
-        store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                          configuration:nil
-                                                    URL:storeURL
-                                                options:nil
-                                                  error:&error];
-        
-        if (!store){
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
             NSLog(@"Error adding persistent store to coordinator %@\n%@", [error localizedDescription], [error userInfo]);
         }
-        
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-            self.persistentStoreCoordinator = coordinator;
-            NSLog(@"Persistent store initialized");
-//        });
-    });
-}
-
-- (NSString *)applicationDocumentsDirectory
-{
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    }
+    
+    NSLog(@"Persistent store initialized");
+    return _persistentStoreCoordinator;
 }
 
 - (void)addRequest:(NSDictionary *)dict
