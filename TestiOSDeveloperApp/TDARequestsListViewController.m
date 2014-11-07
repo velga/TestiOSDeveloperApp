@@ -8,6 +8,9 @@
 
 #import "TDARequestsListViewController.h"
 #import "TDADataManager.h"
+#import "TDARequestInfoCell.h"
+#import "Request.h"
+#import "TDAConstants.h"
 #import <CoreData/CoreData.h>
 
 @interface TDARequestsListViewController () <NSFetchedResultsControllerDelegate>
@@ -19,7 +22,8 @@
 
 @implementation TDARequestsListViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     NSError *error = nil;
@@ -27,7 +31,8 @@
              @"Unresolved error %@\n%@", [error localizedDescription], [error userInfo]);
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -45,19 +50,71 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"requestInfoCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    TDARequestInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[[TDARequestInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
     }
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(TDARequestInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    Request *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    cell.messageLabel.text   = request.message;
+    cell.timeLabel.text      = request.time;
+    cell.reqFormatLabel.text = [self getRequestFormatString:[request.requestFormat integerValue]];
+    cell.reqStatusLabel.text = [self getRequestStatusString:[request.status integerValue]];
+}
+
+- (NSString *)getRequestFormatString:(RequestFormat)format
+{
+    NSString *formatString = @"";
+    
+    switch (format) {
+        case JSONFormat:
+            formatString = @"Format: JSON";
+            break;
+            
+        case XMLFormat:
+            formatString = @"Format: XML";
+            break;
+            
+        case BinaryFormat:
+            formatString = @"Format: Binary";
+            break;
+            
+        default:
+            NSAssert(false, @"Unexpected format");
+            break;
+    }
+    
+    return formatString;
+}
+
+- (NSString *)getRequestStatusString:(RequestStatus)status
+{
+    NSString *statusString = @"";
+    
+    switch (status) {
+        case NotSynchronized:
+        case Synchronizing:
+            statusString = @"Waiting to be sent";
+            break;
+            
+        case Synchronized:
+            statusString = @"Sent";
+            break;
+            
+        default:
+            NSAssert(false, @"Unexpected status");
+            break;
+    }
+    
+    return statusString;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -83,7 +140,6 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Request"
                                                   inManagedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]];
         [fetchRequest setEntity:entity];
-        [entity release];
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"time" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
@@ -132,7 +188,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(TDARequestInfoCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:

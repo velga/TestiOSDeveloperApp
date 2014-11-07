@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum TDARequestFormat {
+typedef enum TDARequestFormat: NSInteger {
     JSONFormat = 0,
     XMLFormat,
     BinaryFormat
 } RequestFormat;
 
-typedef enum TDARequestStatus {
+typedef enum TDARequestStatus: NSInteger {
     NotSynchronized = 0,
     Synchronizing,
     Synchronized

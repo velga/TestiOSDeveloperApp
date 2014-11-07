@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		997BBF0E1A0CF4DE002A91F3 /* TDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF0D1A0CF4DE002A91F3 /* TDAConstants.m */; };
 		997BBF111A0CFDD5002A91F3 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF101A0CFDD5002A91F3 /* Request.m */; };
+		997BBF141A0D091A002A91F3 /* TDARequestInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF131A0D091A002A91F3 /* TDARequestInfoCell.m */; };
 		99869EF51A0A53F6009F9456 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF41A0A53F6009F9456 /* main.m */; };
 		99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */; };
 		99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EFA1A0A53F6009F9456 /* TDAViewController.m */; };
@@ -42,6 +43,8 @@
 		997BBF0D1A0CF4DE002A91F3 /* TDAConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAConstants.m; sourceTree = "<group>"; };
 		997BBF0F1A0CFDD5002A91F3 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		997BBF101A0CFDD5002A91F3 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		997BBF121A0D091A002A91F3 /* TDARequestInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestInfoCell.h; sourceTree = "<group>"; };
+		997BBF131A0D091A002A91F3 /* TDARequestInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestInfoCell.m; sourceTree = "<group>"; };
 		99869EEF1A0A53F6009F9456 /* TestiOSDeveloperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestiOSDeveloperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99869EF31A0A53F6009F9456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99869EF41A0A53F6009F9456 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 				99869EFA1A0A53F6009F9456 /* TDAViewController.m */,
 				99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */,
 				99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */,
+				997BBF121A0D091A002A91F3 /* TDARequestInfoCell.h */,
+				997BBF131A0D091A002A91F3 /* TDARequestInfoCell.m */,
 				99F2E3B71A0BC88F00CB1156 /* TDARequestSendingViewController.h */,
 				99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */,
 				99F2E3BA1A0BC91000CB1156 /* TDAResponsesInfoViewController.h */,
@@ -333,6 +338,7 @@
 				99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */,
 				99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */,
 				99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */,
+				997BBF141A0D091A002A91F3 /* TDARequestInfoCell.m in Sources */,
 				99F2E3A41A0B7A6500CB1156 /* TDARequestsListViewController.m in Sources */,
 				99869EF51A0A53F6009F9456 /* main.m in Sources */,
 				99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */,
