@@ -7,7 +7,7 @@
 //
 
 #import "TDAViewController.h"
-#import "TDADataManager.h"
+#import "TDARequestManager.h"
 
 @interface TDAViewController ()
 
@@ -17,7 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [TDADataManager sharedInstance];
+    //start observing changes in core data
+    [[TDARequestManager sharedInstance] startObservingCoreDataChanges];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

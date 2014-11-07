@@ -7,6 +7,7 @@
 //
 
 #import "TDADataManager.h"
+#import "Request.h"
 
 @interface TDADataManager ()
 
@@ -81,16 +82,24 @@
             NSLog(@"Error adding persistent store to coordinator %@\n%@", [error localizedDescription], [error userInfo]);
         }
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
+//        dispatch_sync(dispatch_get_main_queue(), ^{
             self.persistentStoreCoordinator = coordinator;
             NSLog(@"Persistent store initialized");
-        });
+//        });
     });
 }
 
 - (NSString *)applicationDocumentsDirectory
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (void)addRequest:(NSDictionary *)dict
+{
+//    Request *request = (Request *)[NSEntityDescription insertNewObjectForEntityForName:@"Request"
+//                                                     inManagedObjectContext:self.managedObjectContext];
+    
+    
 }
 
 @end

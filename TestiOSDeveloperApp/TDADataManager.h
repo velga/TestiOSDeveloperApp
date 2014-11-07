@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Request;
+
 @interface TDADataManager : NSObject
 
 @property (retain, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 + (TDADataManager *)sharedInstance;
+
+- (void)addRequest:(NSDictionary *)dict;
 
 @end

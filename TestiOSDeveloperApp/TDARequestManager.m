@@ -22,29 +22,25 @@
     return sharedInstance;
 }
 
-- (instancetype)init
+- (void)startObservingCoreDataChanges
 {
-    self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleDataModelChange:)
-                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-                                                   object:[[TDADataManager sharedInstance] managedObjectContext]];
-    }
-    
-    return self;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
+    NSLog(@"Observing");
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleDataModelChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:[[TDADataManager sharedInstance] managedObjectContext]];
 }
 
 - (void)handleDataModelChange:(NSNotification *)note
 {
     NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
     NSLog(@"%@", insertedObjects);
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 @end

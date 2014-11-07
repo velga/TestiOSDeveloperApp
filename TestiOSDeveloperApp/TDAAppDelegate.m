@@ -7,6 +7,7 @@
 //
 
 #import "TDAAppDelegate.h"
+#import "TDADataManager.h"
 
 @interface TDAAppDelegate ()
 
@@ -16,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [TDADataManager sharedInstance];
     return YES;
 }
 

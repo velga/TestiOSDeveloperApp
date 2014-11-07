@@ -12,4 +12,6 @@
 
 + (TDARequestManager *)sharedInstance;
 
+- (void)startObservingCoreDataChanges;
+
 @end

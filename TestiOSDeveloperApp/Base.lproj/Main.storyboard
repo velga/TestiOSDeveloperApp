@@ -179,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vom-5X-zd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1147" y="166"/>
+            <point key="canvasLocation" x="1249" y="162"/>
         </scene>
         <!--Requests List View Controller-->
         <scene sceneID="gXC-ZT-Dw8">
@@ -214,10 +214,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="tableView" destination="Z12-cP-hEO" id="myn-Q7-CWd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C6k-s7-qSS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="914"/>
+            <point key="canvasLocation" x="210" y="1267"/>
         </scene>
         <!--Responses Info View Controller-->
         <scene sceneID="GSQ-Gi-dcP">
@@ -236,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITp-nC-FtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="733" y="914"/>
+            <point key="canvasLocation" x="866" y="1267"/>
         </scene>
     </scenes>
 </document>
