@@ -51,12 +51,13 @@
     if ([self.messageTextField.text isEqualToString:@""] ||
         self.requestFormatControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
         NSString *msg = @"Message field and Request Format are required";
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                          message:msg
                                                         delegate:nil
                                                cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil] autorelease];
+                                               otherButtonTitles:nil];
         [alert show];
+        [alert release];
         return;
     }
     
