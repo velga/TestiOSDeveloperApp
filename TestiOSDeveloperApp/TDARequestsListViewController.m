@@ -79,13 +79,15 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Request"
                                                   inManagedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]];
         [fetchRequest setEntity:entity];
+        [entity release];
         
-        NSSortDescriptor *sort = [[[NSSortDescriptor alloc] initWithKey:@"time" ascending:NO] autorelease];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"time" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        [sort release];
         
         [fetchRequest setFetchBatchSize:20];
         
@@ -93,6 +95,8 @@
                                                                                                       managedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]
                                                                                                         sectionNameKeyPath:nil
                                                                                                                  cacheName:@"Root"] autorelease];
+        [fetchRequest release];
+        
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = self;
     }

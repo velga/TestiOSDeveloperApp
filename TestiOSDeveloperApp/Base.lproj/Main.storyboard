@@ -85,7 +85,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aYV-1B-JKE">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="aYV-1B-JKE">
                                 <rect key="frame" x="20" y="252" width="162" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="162" id="tFv-VU-bSr"/>
@@ -102,6 +102,9 @@
                                 <state key="normal" title="Send">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="otK-uT-iBV" eventType="touchUpInside" id="QSp-II-MfO"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YJ9-2S-0TX">
                                 <rect key="frame" x="95" y="182" width="485" height="30"/>
@@ -176,6 +179,14 @@
                         </variation>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="boolParameterSwitch" destination="Dzp-dd-k9i" id="imt-jh-zwx"/>
+                        <outlet property="connectionStatusLabel" destination="wDg-il-wxJ" id="OGm-iU-Yl9"/>
+                        <outlet property="infoTextView" destination="eye-hF-KR4" id="AdQ-a0-gbE"/>
+                        <outlet property="messageTextField" destination="YJ9-2S-0TX" id="YsZ-bX-MJc"/>
+                        <outlet property="requestFormatControl" destination="aYV-1B-JKE" id="Sj2-KC-T18"/>
+                        <outlet property="sendButton" destination="4e8-Gf-CEi" id="NFY-tb-esu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vom-5X-zd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
