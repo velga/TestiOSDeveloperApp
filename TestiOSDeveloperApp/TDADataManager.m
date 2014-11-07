@@ -8,6 +8,7 @@
 
 #import "TDADataManager.h"
 #import "Request.h"
+#import "TDAConstants.h"
 
 @interface TDADataManager ()
 
@@ -83,10 +84,18 @@
 
 - (void)addRequest:(NSDictionary *)dict
 {
-//    Request *request = (Request *)[NSEntityDescription insertNewObjectForEntityForName:@"Request"
-//                                                     inManagedObjectContext:self.managedObjectContext];
+    Request *request = (Request *)[NSEntityDescription insertNewObjectForEntityForName:@"Request"
+                                                                inManagedObjectContext:self.managedObjectContext];
     
+    [request setBoolParameter:dict[kBoolParameter]];
+    [request setMessage:dict[kMessageParameter]];
+    [request setRequestFormat:dict[kRequestFormat]];
+    [request setTime:dict[kRequestTime]];
     
+    NSError *error;
+    if (![[self managedObjectContext] save:&error]) {
+        NSLog(@"Error saving the entity");
+    }
 }
 
 @end

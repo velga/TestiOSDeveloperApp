@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		997BBF0E1A0CF4DE002A91F3 /* TDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF0D1A0CF4DE002A91F3 /* TDAConstants.m */; };
+		997BBF111A0CFDD5002A91F3 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF101A0CFDD5002A91F3 /* Request.m */; };
 		99869EF51A0A53F6009F9456 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF41A0A53F6009F9456 /* main.m */; };
 		99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */; };
 		99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EFA1A0A53F6009F9456 /* TDAViewController.m */; };
@@ -19,7 +20,6 @@
 		99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */; };
 		99F2E3A91A0B8D5500CB1156 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F2E3A81A0B8D5500CB1156 /* CoreData.framework */; };
 		99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */; };
-		99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B51A0BBCEE00CB1156 /* Request.m */; };
 		99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */; };
 		99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */; };
 		99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */; };
@@ -40,6 +40,8 @@
 		90D27089B3B888C7FB58C60E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		997BBF0C1A0CF4DE002A91F3 /* TDAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAConstants.h; sourceTree = "<group>"; };
 		997BBF0D1A0CF4DE002A91F3 /* TDAConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAConstants.m; sourceTree = "<group>"; };
+		997BBF0F1A0CFDD5002A91F3 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
+		997BBF101A0CFDD5002A91F3 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		99869EEF1A0A53F6009F9456 /* TestiOSDeveloperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestiOSDeveloperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99869EF31A0A53F6009F9456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99869EF41A0A53F6009F9456 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -59,8 +61,6 @@
 		99F2E3A81A0B8D5500CB1156 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		99F2E3AA1A0B8F7F00CB1156 /* TDADataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDADataManager.h; sourceTree = "<group>"; };
 		99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDADataManager.m; sourceTree = "<group>"; };
-		99F2E3B41A0BBCEE00CB1156 /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
-		99F2E3B51A0BBCEE00CB1156 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		99F2E3B71A0BC88F00CB1156 /* TDARequestSendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestSendingViewController.h; sourceTree = "<group>"; };
 		99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestSendingViewController.m; sourceTree = "<group>"; };
 		99F2E3BA1A0BC91000CB1156 /* TDAResponsesInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAResponsesInfoViewController.h; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */,
-				99F2E3B41A0BBCEE00CB1156 /* Request.h */,
-				99F2E3B51A0BBCEE00CB1156 /* Request.m */,
+				997BBF0F1A0CFDD5002A91F3 /* Request.h */,
+				997BBF101A0CFDD5002A91F3 /* Request.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -328,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				997BBF111A0CFDD5002A91F3 /* Request.m in Sources */,
 				99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */,
 				99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */,
 				99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */,
@@ -337,7 +338,6 @@
 				99F2E3AC1A0B8F7F00CB1156 /* TDADataManager.m in Sources */,
 				997BBF0E1A0CF4DE002A91F3 /* TDAConstants.m in Sources */,
 				99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */,
-				99F2E3B61A0BBCEE00CB1156 /* Request.m in Sources */,
 				99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

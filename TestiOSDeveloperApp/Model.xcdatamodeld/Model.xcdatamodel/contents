@@ -5,7 +5,7 @@
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="requestFormat" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Request" positionX="-63" positionY="-18" width="128" height="120"/>
