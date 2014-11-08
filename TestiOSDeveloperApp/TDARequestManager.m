@@ -60,8 +60,6 @@
 {
     NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
     NSLog(@"%@", insertedObjects);
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:@{@"message": @(3)}];
-    [_webSocket send:myData];
 }
 
 - (void)dealloc
@@ -87,7 +85,6 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
-    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)message];
     NSLog(@"Received \"%@\"", message);
 }
 
