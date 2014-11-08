@@ -1,12 +1,15 @@
 PODS:
+  - Reachability (3.1.1)
   - SocketRocket (0.3.1-beta2)
   - XMLReader-Arc (1.1)
 
 DEPENDENCIES:
+  - Reachability (~> 3.1)
   - SocketRocket (= 0.3.1-beta2)
   - XMLReader-Arc (~> 1.1)
 
 SPEC CHECKSUMS:
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
   XMLReader-Arc: 3110b7fd7cbfacd38aa0f1362ee2050cf791111f
 

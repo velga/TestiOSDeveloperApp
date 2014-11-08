@@ -4,3 +4,4 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'SocketRocket', '0.3.1-beta2'
 pod 'XMLReader-Arc', '~> 1.1'
+pod 'Reachability', '~> 3.1'

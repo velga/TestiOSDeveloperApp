@@ -11,14 +11,18 @@
 #import "TDAConstants.h"
 #import "Request+Utilities.h"
 #import <SocketRocket/SRWebSocket.h>
+#import <Reachability/Reachability.h>
 
 @interface TDARequestManager () <SRWebSocketDelegate>
+
+@property (retain, nonatomic) NSOperationQueue *operationQueue;
 
 @end
 
 @implementation TDARequestManager
 {
     SRWebSocket *_webSocket;
+    BOOL _hasInternetConnection;
 }
 
 + (TDARequestManager *)sharedInstance
@@ -27,10 +31,21 @@
     static TDARequestManager *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[TDARequestManager alloc] init] retain];
+        [sharedInstance startObservingReachability];
         [sharedInstance connectWebSocet];
     });
     
     return sharedInstance;
+}
+
+- (NSOperationQueue *)operationQueue
+{
+    if (!_operationQueue) {
+        _operationQueue = [[NSOperationQueue alloc] init];
+        _operationQueue.name = @"requestsSendingQueue";
+    }
+    
+    return _operationQueue;
 }
 
 - (void)startObservingCoreDataChanges
@@ -40,6 +55,43 @@
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:[[TDADataManager sharedInstance] managedObjectContext]];
 }
+
+- (void)dealloc
+{
+    [_webSocket release];
+    [_operationQueue release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
+}
+
+
+#pragma mark - Reachability
+
+- (void)startObservingReachability
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    
+    [reachability startNotifier];
+}
+
+- (void)reachabilityChanged:(NSNotification *)note
+{
+     Reachability* curReach = [note object];
+    if(curReach.currentReachabilityStatus == NotReachable) {
+        _hasInternetConnection = NO;
+        [self.operationQueue setSuspended:YES];
+    } else {
+        _hasInternetConnection = YES;
+        [self connectWebSocet];
+    }
+}
+
+
+#pragma mark - Work with server
 
 - (void)connectWebSocet
 {
@@ -60,14 +112,14 @@
 - (void)handleDataModelChange:(NSNotification *)note
 {
     NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
-    NSLog(@"%@", insertedObjects);
-}
-
-- (void)dealloc
-{
-    [_webSocket release];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
+    
+    [insertedObjects enumerateObjectsUsingBlock:^(Request *request, BOOL *stop) {
+        __block TDARequestManager *blockSelf = self;
+        if (!blockSelf) { return; }
+        [self.operationQueue addOperationWithBlock:^{
+            [blockSelf sendDataToServer:request];
+        }];
+    }];
 }
 
 
@@ -76,12 +128,15 @@
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
     NSLog(@"Websocket Connected");
+    [self.operationQueue setSuspended:NO];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
     NSLog(@"Websocket Failed With Error %@", error);
-    [self connectWebSocet];
+    if (_hasInternetConnection) {
+        [self connectWebSocet];
+    }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
