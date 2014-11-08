@@ -16,7 +16,6 @@
 		997BBF1C1A0D1E21002A91F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997BBF1B1A0D1E21002A91F3 /* Foundation.framework */; };
 		99869EF51A0A53F6009F9456 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF41A0A53F6009F9456 /* main.m */; };
 		99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */; };
-		99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EFA1A0A53F6009F9456 /* TDAViewController.m */; };
 		99869EFE1A0A53F6009F9456 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99869EFC1A0A53F6009F9456 /* Main.storyboard */; };
 		99869F001A0A53F6009F9456 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99869EFF1A0A53F6009F9456 /* Images.xcassets */; };
 		99869F031A0A53F6009F9456 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99869F011A0A53F6009F9456 /* LaunchScreen.xib */; };
@@ -58,8 +57,6 @@
 		99869EF41A0A53F6009F9456 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		99869EF61A0A53F6009F9456 /* TDAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDAAppDelegate.h; sourceTree = "<group>"; };
 		99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDAAppDelegate.m; sourceTree = "<group>"; };
-		99869EF91A0A53F6009F9456 /* TDAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDAViewController.h; sourceTree = "<group>"; };
-		99869EFA1A0A53F6009F9456 /* TDAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDAViewController.m; sourceTree = "<group>"; };
 		99869EFD1A0A53F6009F9456 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		99869EFF1A0A53F6009F9456 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99869F021A0A53F6009F9456 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -151,8 +148,6 @@
 				99F2E3AB1A0B8F7F00CB1156 /* TDADataManager.m */,
 				99F2E3BD1A0BFAEF00CB1156 /* TDARequestManager.h */,
 				99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */,
-				99869EF91A0A53F6009F9456 /* TDAViewController.h */,
-				99869EFA1A0A53F6009F9456 /* TDAViewController.m */,
 				99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */,
 				99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */,
 				997BBF121A0D091A002A91F3 /* TDARequestInfoCell.h */,
@@ -350,7 +345,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				997BBF111A0CFDD5002A91F3 /* Request.m in Sources */,
-				99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */,
 				99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */,
 				99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */,
 				99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */,

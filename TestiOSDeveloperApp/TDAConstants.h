@@ -20,6 +20,8 @@ typedef enum TDARequestStatus: NSInteger {
     Synchronized
 } RequestStatus;
 
+extern NSString *const kServerURLString;
+
 extern NSString *const kBoolParameter;
 extern NSString *const kMessageParameter;
 extern NSString *const kRequestFormat;

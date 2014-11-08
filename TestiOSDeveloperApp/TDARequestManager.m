@@ -8,6 +8,7 @@
 
 #import "TDARequestManager.h"
 #import "TDADataManager.h"
+#import "TDAConstants.h"
 #import <SocketRocket/SRWebSocket.h>
 
 @interface TDARequestManager () <SRWebSocketDelegate>
@@ -33,7 +34,6 @@
 
 - (void)startObservingCoreDataChanges
 {
-    NSLog(@"Observing");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleDataModelChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -46,21 +46,22 @@
     [_webSocket close];
     [_webSocket release];
     
-    NSURL *url = [NSURL URLWithString:@"ws://echo.websocket.org/"];
+    NSURL *url = [NSURL URLWithString:kServerURLString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     _webSocket = [[SRWebSocket alloc] initWithURLRequest:request];
     _webSocket.delegate = self;
     
     [_webSocket open];
-    NSLog(@"Opening connecction");
+    NSLog(@"Opening connection");
 }
 
 - (void)handleDataModelChange:(NSNotification *)note
 {
     NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
     NSLog(@"%@", insertedObjects);
-    [_webSocket send:@"Message"];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:@{@"message": @(3)}];
+    [_webSocket send:myData];
 }
 
 - (void)dealloc
@@ -86,6 +87,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
+    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)message];
     NSLog(@"Received \"%@\"", message);
 }
 

@@ -8,6 +8,8 @@
 
 #import "TDAConstants.h"
 
+NSString *const kServerURLString = @"ws://echo.websocket.org/";
+
 NSString *const kBoolParameter    = @"boolParam";
 NSString *const kMessageParameter = @"message";
 NSString *const kRequestFormat    = @"reqFormat";

@@ -7,7 +7,7 @@
 //
 
 #import "TDAAppDelegate.h"
-#import "TDADataManager.h"
+#import "TDARequestManager.h"
 
 @interface TDAAppDelegate ()
 
@@ -17,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [TDADataManager sharedInstance];
+    //start observing changes in core data
+    [[TDARequestManager sharedInstance] startObservingCoreDataChanges];
+    
     return YES;
 }
 
