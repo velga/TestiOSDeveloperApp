@@ -9,6 +9,7 @@
 #import "TDARequestManager.h"
 #import "TDADataManager.h"
 #import "TDAConstants.h"
+#import "Request+Utilities.h"
 #import <SocketRocket/SRWebSocket.h>
 
 @interface TDARequestManager () <SRWebSocketDelegate>
@@ -92,6 +93,33 @@
 {
     NSLog(@"WebSocket closed");
     [self connectWebSocet];
+}
+
+- (void)sendDataToServer:(Request *)request
+{
+    switch ([request.requestFormat integerValue]) {
+        case JSONFormat: {
+            NSString *jsonString = [request createJSONRepresentation];
+            if (jsonString) { [_webSocket send:jsonString]; }
+            break;
+        }
+           
+        case XMLFormat: {
+            NSString *xmlString = [request createXMLRepresentation];
+            if (xmlString) { [_webSocket send:xmlString]; }
+            break;
+        }
+            
+        case BinaryFormat: {
+            NSData *data = [request createBinaryRepresentation];
+            if (data) { [_webSocket send:data]; }
+            break;
+        }
+            
+        default:
+            NSAssert(false, @"Unexpected format");
+            break;
+    }
 }
 
 @end

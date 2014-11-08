@@ -1,21 +1,20 @@
 //
-//  NSManagedObject+Utilities.m
+//  Request+Utilities.m
 //  TestiOSDeveloperApp
 //
 //  Created by Vladislava Kirichenko on 11/8/14.
 //  Copyright (c) 2014 Vladislava Kirichenko. All rights reserved.
 //
 
-#import "NSManagedObject+Utilities.h"
-#import "Request.h"
+#import "Request+Utilities.h"
 #import "TDAConstants.h"
 
-@implementation NSManagedObject (Utilities)
+@implementation Request (Utilities)
 
-- (NSData *)createBinaryRepresentation:(Request *)request
+- (NSData *)createBinaryRepresentation
 {
-    NSDictionary *dict = @{kMessageParameter: request.message,
-                           kBoolParameter   : request.boolParameter};
+    NSDictionary *dict = @{kMessageParameter: self.message,
+                           kBoolParameter   : self.boolParameter};
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
     if (data) {
@@ -25,10 +24,10 @@
     return nil;
 }
 
-- (NSString *)createJSONRepresentation:(Request *)request
+- (NSString *)createJSONRepresentation
 {
-    NSDictionary *dict = @{kMessageParameter: request.message,
-                           kBoolParameter   : request.boolParameter};
+    NSDictionary *dict = @{kMessageParameter: self.message,
+                           kBoolParameter   : self.boolParameter};
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
@@ -45,9 +44,9 @@
     return nil;
 }
 
-- (NSString *)createXMLRepresentation:(Request *)request
+- (NSString *)createXMLRepresentation
 {
-    NSString *xmlString = [NSString stringWithFormat:@"<item><message>%@</message><boolParameter>%d</boolParameter></item>", request.message, [request.boolParameter boolValue]];
+    NSString *xmlString = [NSString stringWithFormat:@"<item><message>%@</message><boolParameter>%d</boolParameter></item>", self.message, [self.boolParameter boolValue]];
     
     return xmlString;
 }
