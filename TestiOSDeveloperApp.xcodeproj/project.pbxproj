@@ -10,6 +10,10 @@
 		997BBF0E1A0CF4DE002A91F3 /* TDAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF0D1A0CF4DE002A91F3 /* TDAConstants.m */; };
 		997BBF111A0CFDD5002A91F3 /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF101A0CFDD5002A91F3 /* Request.m */; };
 		997BBF141A0D091A002A91F3 /* TDARequestInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 997BBF131A0D091A002A91F3 /* TDARequestInfoCell.m */; };
+		997BBF161A0D1E01002A91F3 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 997BBF151A0D1E01002A91F3 /* libicucore.dylib */; };
+		997BBF181A0D1E0F002A91F3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997BBF171A0D1E0F002A91F3 /* CFNetwork.framework */; };
+		997BBF1A1A0D1E1B002A91F3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997BBF191A0D1E1B002A91F3 /* Security.framework */; };
+		997BBF1C1A0D1E21002A91F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997BBF1B1A0D1E21002A91F3 /* Foundation.framework */; };
 		99869EF51A0A53F6009F9456 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF41A0A53F6009F9456 /* main.m */; };
 		99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EF71A0A53F6009F9456 /* TDAAppDelegate.m */; };
 		99869EFB1A0A53F6009F9456 /* TDAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869EFA1A0A53F6009F9456 /* TDAViewController.m */; };
@@ -45,6 +49,10 @@
 		997BBF101A0CFDD5002A91F3 /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		997BBF121A0D091A002A91F3 /* TDARequestInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestInfoCell.h; sourceTree = "<group>"; };
 		997BBF131A0D091A002A91F3 /* TDARequestInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestInfoCell.m; sourceTree = "<group>"; };
+		997BBF151A0D1E01002A91F3 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		997BBF171A0D1E0F002A91F3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		997BBF191A0D1E1B002A91F3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		997BBF1B1A0D1E21002A91F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99869EEF1A0A53F6009F9456 /* TestiOSDeveloperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestiOSDeveloperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99869EF31A0A53F6009F9456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99869EF41A0A53F6009F9456 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,6 +87,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				997BBF1C1A0D1E21002A91F3 /* Foundation.framework in Frameworks */,
+				997BBF1A1A0D1E1B002A91F3 /* Security.framework in Frameworks */,
+				997BBF181A0D1E0F002A91F3 /* CFNetwork.framework in Frameworks */,
+				997BBF161A0D1E01002A91F3 /* libicucore.dylib in Frameworks */,
 				99F2E3A91A0B8D5500CB1156 /* CoreData.framework in Frameworks */,
 				D6D074E32B74D7F00A112CD7 /* libPods.a in Frameworks */,
 			);
@@ -97,6 +109,10 @@
 		040D6679E9B9B65857E9EEC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				997BBF1B1A0D1E21002A91F3 /* Foundation.framework */,
+				997BBF191A0D1E1B002A91F3 /* Security.framework */,
+				997BBF171A0D1E0F002A91F3 /* CFNetwork.framework */,
+				997BBF151A0D1E01002A91F3 /* libicucore.dylib */,
 				99F2E3A81A0B8D5500CB1156 /* CoreData.framework */,
 				CA3E3F39BA16FD6744E93684 /* libPods.a */,
 			);

@@ -8,8 +8,16 @@
 
 #import "TDARequestManager.h"
 #import "TDADataManager.h"
+#import <SocketRocket/SRWebSocket.h>
+
+@interface TDARequestManager () <SRWebSocketDelegate>
+
+@end
 
 @implementation TDARequestManager
+{
+    SRWebSocket *_webSocket;
+}
 
 + (TDARequestManager *)sharedInstance
 {
@@ -17,6 +25,7 @@
     static TDARequestManager *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[TDARequestManager alloc] init] retain];
+        [sharedInstance connectWebSocet];
     });
     
     return sharedInstance;
@@ -31,16 +40,59 @@
                                                object:[[TDADataManager sharedInstance] managedObjectContext]];
 }
 
+- (void)connectWebSocet
+{
+    _webSocket.delegate = nil;
+    [_webSocket close];
+    [_webSocket release];
+    
+    NSURL *url = [NSURL URLWithString:@"ws://echo.websocket.org/"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    _webSocket = [[SRWebSocket alloc] initWithURLRequest:request];
+    _webSocket.delegate = self;
+    
+    [_webSocket open];
+    NSLog(@"Opening connecction");
+}
+
 - (void)handleDataModelChange:(NSNotification *)note
 {
     NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
     NSLog(@"%@", insertedObjects);
+    [_webSocket send:@"Message"];
 }
 
 - (void)dealloc
 {
+    [_webSocket release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
+}
+
+
+#pragma mark - SRWebSocketDelegate
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+{
+    NSLog(@"Websocket Connected");
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
+{
+    NSLog(@"Websocket Failed With Error %@", error);
+    [self connectWebSocet];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+{
+    NSLog(@"Received \"%@\"", message);
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+{
+    NSLog(@"WebSocket closed");
+    [self connectWebSocet];
 }
 
 @end
