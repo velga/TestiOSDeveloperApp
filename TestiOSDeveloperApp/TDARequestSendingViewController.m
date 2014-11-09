@@ -25,6 +25,28 @@
 
 @implementation TDARequestSendingViewController
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleConnectionChanges:)
+                                                 name:kConnectionChangedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleSendedRequestNotification:)
+                                                 name:kSendedRequestNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleResponseNotification:)
+                                                 name:kResponseNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleErrorNotification:)
+                                                 name:kErrorNotification
+                                               object:nil];
+}
+
 - (void)dealloc
 {
     [_connectionStatusLabel release];
@@ -34,6 +56,7 @@
     [_requestFormatControl release];
     [_sendButton release];
     [_dateFormatter release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -81,6 +104,46 @@
                            kRequestTime: currentTime};
     
     return dict;
+}
+
+
+#pragma mark - Handle Notifications
+
+- (void)handleConnectionChanges:(NSNotification *)note
+{
+    NSDictionary *userInfo = note.userInfo;
+    
+    self.connectionStatusLabel.text = userInfo[kConnectionStatus];
+    
+    NSString *connectioneString = [NSString stringWithFormat:@"%@: %@\n",
+                                userInfo[kChangesTime], userInfo[kConnectionStatus]];
+    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:connectioneString];
+}
+
+- (void)handleSendedRequestNotification:(NSNotification *)note
+{
+    NSDictionary *userInfo = note.userInfo;
+    
+    NSString *sendedString = [NSString stringWithFormat:@"%@: %@\n",
+                                   userInfo[kRequestTime], userInfo[kRequestObject]];
+    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:sendedString];
+}
+
+- (void)handleResponseNotification:(NSNotification *)note
+{
+    NSDictionary *userInfo = note.userInfo;
+    
+    NSString *responseString = [NSString stringWithFormat:@"%@: %@\n", userInfo[kResponseTime], userInfo[kResponseObject]];
+    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:responseString];
+}
+
+- (void)handleErrorNotification:(NSNotification *)note
+{
+    NSDictionary *userInfo = note.userInfo;
+    
+    NSString *errorString = [NSString stringWithFormat:@"%@: %@\n", userInfo[kErrorTime], userInfo[kErrorInfo]];
+    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:errorString];
+
 }
 
 @end

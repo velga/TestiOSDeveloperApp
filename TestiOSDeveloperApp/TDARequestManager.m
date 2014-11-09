@@ -128,7 +128,8 @@
     _webSocket.delegate = self;
     
     [_webSocket open];
-    NSLog(@"Opening connection");
+    
+    [self sendConnectionStatusNotification:@"Opening connection"];
 }
 
 - (void)handleDataModelChange:(NSNotification *)note
@@ -146,6 +147,8 @@
 
 - (void)sendDataToServer:(Request *)request
 {
+    [self sendRequestNotification:request];
+    
     switch ([request.requestFormat integerValue]) {
         case JSONFormat: {
             NSString *jsonString = [request createJSONRepresentation];
@@ -176,27 +179,30 @@
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
-    NSLog(@"Websocket Connected");
+    [self sendConnectionStatusNotification:@"Connected"];
     [self.operationQueue setSuspended:NO];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
-    NSLog(@"Websocket Failed With Error %@", error);
+    NSString *errorInfo = [NSString stringWithFormat:@"Websocket Failed With Error %@", error];
+    [self sendErrorNotification: errorInfo];
+    
     if (_hasInternetConnection) {
         [self connectWebSocet];
+    } else {
+        [self sendConnectionStatusNotification:@"Connection failded"];
     }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
-    NSLog(@"WebSocket closed");
+    [self sendConnectionStatusNotification:@"Closed"];
     [self connectWebSocet];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
-    NSLog(@"Received \"%@\"", message);
     [self sendResponseNotification:(id)message];
     
     if ([message isKindOfClass:[NSData class]]) {
@@ -212,13 +218,6 @@
     }
 }
 
-- (void)sendResponseNotification:(id)response
-{
-    NSDictionary *dict = @{kResponseTime:   [self currentTime],
-                           kResponseObject: response};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kResponseNotification object:nil userInfo:dict];
-}
-
 - (void)sendResponseDictionaryToCoreData:(NSDictionary *)dict
 {
     [[TDADataManager sharedInstance] changeRequestStatus:dict];
@@ -232,14 +231,6 @@
     NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
     if ([firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"]) { return YES; }
     return NO;
-}
-
-- (NSString *)currentTime
-{
-    NSDate *today = [NSDate date];
-    
-    NSString *currentTime = [self.dateFormatter stringFromDate:today];
-    return currentTime;
 }
 
 - (NSDictionary *)retrieveDataFromJSONResponse:(NSString *)jsonString
@@ -289,6 +280,49 @@
                            kBoolParameter: binaryDict[kBoolParameter],
                            kRequestFormat: @(BinaryFormat)};
     return dict;
+}
+
+
+#pragma mark - Notifications
+
+- (void)sendRequestNotification:(Request *)request
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        NSDictionary *dict = @{kRequestTime: [self currentTime],
+                               kRequestObject: request};
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSendedRequestNotification object:nil userInfo:dict];
+    }];
+}
+
+- (void)sendResponseNotification:(id)response
+{
+    NSDictionary *dict = @{kResponseTime: [self currentTime],
+                           kResponseObject: response};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kResponseNotification object:nil userInfo:dict];
+}
+
+- (void)sendConnectionStatusNotification:(NSString *)status
+{
+    NSDictionary *dict = @{kChangesTime: [self currentTime],
+                           kConnectionStatus: status};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConnectionChangedNotification object:nil userInfo:dict];
+}
+
+- (void)sendErrorNotification:(NSString *)error
+{
+    NSDictionary *dict = @{kErrorTime: [self currentTime],
+                           kErrorInfo: error};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotification object:nil userInfo:dict];
+}
+
+- (NSString *)currentTime
+{
+    NSDate *today = [NSDate date];
+    
+    NSString *currentTime = [self.dateFormatter stringFromDate:today];
+    return currentTime;
 }
 
 @end

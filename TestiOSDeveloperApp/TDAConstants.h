@@ -22,6 +22,11 @@ typedef NS_ENUM(NSInteger, TDARequestStatus) {
 extern NSString *const kServerURLString;
 
 extern NSString *const kResponseNotification;
+extern NSString *const kConnectionChangedNotification;
+extern NSString *const kSendedRequestNotification;
+extern NSString *const kErrorNotification;
+
+extern NSString *const kRequestObject;
 
 extern NSString *const kBoolParameter;
 extern NSString *const kMessageParameter;
@@ -31,3 +36,9 @@ extern NSString *const kRequestTime;
 
 extern NSString *const kResponseTime;
 extern NSString *const kResponseObject;
+
+extern NSString *const kConnectionStatus;
+extern NSString *const kChangesTime;
+
+extern NSString *const kErrorTime;
+extern NSString *const kErrorInfo;

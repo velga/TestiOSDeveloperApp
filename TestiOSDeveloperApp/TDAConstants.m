@@ -10,7 +10,12 @@
 
 NSString *const kServerURLString = @"ws://echo.websocket.org/";
 
-NSString *const kResponseNotification = @"responseNotification";
+NSString *const kResponseNotification          = @"responseNotification";
+NSString *const kConnectionChangedNotification = @"connectionNotification";
+NSString *const kSendedRequestNotification     = @"sendedNotification";
+NSString *const kErrorNotification             = @"errorNotification";
+
+NSString *const kRequestObject = @"reqObject";
 
 NSString *const kBoolParameter    = @"boolParam";
 NSString *const kMessageParameter = @"message";
@@ -20,3 +25,9 @@ NSString *const kRequestTime      = @"reqTime";
 
 NSString *const kResponseTime   = @"responseTime";
 NSString *const kResponseObject = @"responseObject";
+
+NSString *const kConnectionStatus = @"connectionStatus";
+NSString *const kChangesTime      = @"time";
+
+NSString *const kErrorTime = @"errorTime";
+NSString *const kErrorInfo = @"errorInfo";
