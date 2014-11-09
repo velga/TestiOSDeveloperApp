@@ -98,4 +98,28 @@
     }
 }
 
+- (void)changeRequestStatus:(NSDictionary *)dict
+{
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Request" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *fRequest = [[[NSFetchRequest alloc] init] autorelease];
+    [fRequest setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(message LIKE[c] %@) AND (boolParameter == %@) AND (requestFormat == %@)",
+                              dict[kMessageParameter], dict[kBoolParameter], dict[kRequestFormat]];
+    [fRequest setPredicate:predicate];
+    
+    NSError *error;
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fRequest error:&error];
+    if (!array) {
+        return;
+    }
+    
+    Request *request = array.firstObject;
+    [request setStatus:@(Sent)];
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unable to save managed object context.");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+}
+
 @end

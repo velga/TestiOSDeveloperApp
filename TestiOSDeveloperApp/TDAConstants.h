@@ -15,9 +15,8 @@ typedef enum TDARequestFormat: NSInteger {
 } RequestFormat;
 
 typedef enum TDARequestStatus: NSInteger {
-    NotSynchronized = 0,
-    Synchronizing,
-    Synchronized
+    Waiting = 0,
+    Sent,
 } RequestStatus;
 
 extern NSString *const kServerURLString;

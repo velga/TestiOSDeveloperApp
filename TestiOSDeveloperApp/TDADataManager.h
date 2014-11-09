@@ -18,5 +18,6 @@
 + (TDADataManager *)sharedInstance;
 
 - (void)addRequest:(NSDictionary *)dict;
+- (void)changeRequestStatus:(NSDictionary *)dict;
 
 @end

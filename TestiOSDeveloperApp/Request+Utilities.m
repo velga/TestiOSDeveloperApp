@@ -46,7 +46,7 @@
 
 - (NSString *)createXMLRepresentation
 {
-    NSString *xmlString = [NSString stringWithFormat:@"<item><message>%@</message><boolParameter>%d</boolParameter></item>", self.message, [self.boolParameter boolValue]];
+    NSString *xmlString = [NSString stringWithFormat:@"<item><message>%@</message><boolParam>%d</boolParam></item>", self.message, [self.boolParameter boolValue]];
     
     return xmlString;
 }

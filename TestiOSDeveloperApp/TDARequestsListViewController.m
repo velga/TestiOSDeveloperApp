@@ -100,12 +100,11 @@
     NSString *statusString = @"";
     
     switch (status) {
-        case NotSynchronized:
-        case Synchronizing:
+        case Waiting:
             statusString = @"Waiting to be sent";
             break;
             
-        case Synchronized:
+        case Sent:
             statusString = @"Sent";
             break;
             

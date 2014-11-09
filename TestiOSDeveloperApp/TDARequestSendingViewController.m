@@ -81,7 +81,7 @@
     NSDictionary *dict = @{kBoolParameter   : self.boolParameterSwitch.isOn? @(1) : @(0),
                            kMessageParameter: self.messageTextField.text,
                            kRequestFormat   : @(format),
-                           kRequestStatus   : @(NotSynchronized),
+                           kRequestStatus   : @(Waiting),
                            kRequestTime     : currentTime};
     
     return dict;

@@ -12,6 +12,7 @@
 #import "Request+Utilities.h"
 #import <SocketRocket/SRWebSocket.h>
 #import <Reachability/Reachability.h>
+#import <XMLReader-Arc/XMLReader.h>
 
 @interface TDARequestManager () <SRWebSocketDelegate>
 
@@ -122,6 +123,33 @@
     }];
 }
 
+- (void)sendDataToServer:(Request *)request
+{
+    switch ([request.requestFormat integerValue]) {
+        case JSONFormat: {
+            NSString *jsonString = [request createJSONRepresentation];
+            if (jsonString) { [_webSocket send:jsonString]; }
+            break;
+        }
+            
+        case XMLFormat: {
+            NSString *xmlString = [request createXMLRepresentation];
+            if (xmlString) { [_webSocket send:xmlString]; }
+            break;
+        }
+            
+        case BinaryFormat: {
+            NSData *data = [request createBinaryRepresentation];
+            if (data) { [_webSocket send:data]; }
+            break;
+        }
+            
+        default:
+            NSAssert(false, @"Unexpected format");
+            break;
+    }
+}
+
 
 #pragma mark - SRWebSocketDelegate
 
@@ -139,42 +167,89 @@
     }
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
-{
-    NSLog(@"Received \"%@\"", message);
-}
-
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
     NSLog(@"WebSocket closed");
     [self connectWebSocet];
 }
 
-- (void)sendDataToServer:(Request *)request
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
-    switch ([request.requestFormat integerValue]) {
-        case JSONFormat: {
-            NSString *jsonString = [request createJSONRepresentation];
-            if (jsonString) { [_webSocket send:jsonString]; }
-            break;
+    NSLog(@"Received \"%@\"", message);
+    
+    if ([message isKindOfClass:[NSData class]]) {
+        [self sendResponseDictionaryToCoreData:[self retrieveDataFromBinaryDataResponse:(NSData *)message]];
+    } else if ([message isKindOfClass:[NSString class]]) {
+        if ([self isXMLFormat:message]) {
+            [self sendResponseDictionaryToCoreData:[self retrieveDataFromXMLResponse:(NSString *)message]];
+        } else {
+            [self sendResponseDictionaryToCoreData:[self retrieveDataFromJSONResponse:(NSString *)message]];
         }
-           
-        case XMLFormat: {
-            NSString *xmlString = [request createXMLRepresentation];
-            if (xmlString) { [_webSocket send:xmlString]; }
-            break;
-        }
-            
-        case BinaryFormat: {
-            NSData *data = [request createBinaryRepresentation];
-            if (data) { [_webSocket send:data]; }
-            break;
-        }
-            
-        default:
-            NSAssert(false, @"Unexpected format");
-            break;
+    } else {
+        NSAssert(false, @"Unexpected response class");
     }
+}
+
+- (void)sendResponseDictionaryToCoreData:(NSDictionary *)dict
+{
+    [[TDADataManager sharedInstance] changeRequestStatus:dict];
+}
+
+- (BOOL)isXMLFormat:(NSString *)string
+{
+    NSString *firstLetter = [string substringToIndex:1];
+    NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
+    if ([firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"]) { return YES; }
+    return NO;
+}
+
+- (NSDictionary *)retrieveDataFromJSONResponse:(NSString *)jsonString
+{
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                         options:kNilOptions
+                                                           error:&error] ;
+    
+    if (!jsonDict) {
+        NSLog(@"%@", error.localizedDescription);
+        return nil;
+    }
+    
+    NSDictionary *dict = @{kMessageParameter: jsonDict[kMessageParameter],
+                           kBoolParameter:    jsonDict[kBoolParameter],
+                           kRequestFormat:    @(JSONFormat)};
+    return dict;
+}
+
+- (NSDictionary *)retrieveDataFromXMLResponse:(NSString *)xmlString
+{
+    NSError *parseError = nil;
+    NSDictionary *xmlDict = (NSMutableDictionary *)[XMLReader dictionaryForXMLString:xmlString error:&parseError];
+    
+    if (!xmlDict) {
+        NSLog(@"%@", parseError.localizedDescription);
+        return nil;
+    }
+    
+    NSString *message = [[[xmlDict objectForKey:@"item"] objectForKey:kMessageParameter] objectForKey:@"text"];
+    NSInteger boolPar = [[[[xmlDict objectForKey:@"item"] objectForKey:kBoolParameter] objectForKey:@"text"] integerValue];
+    NSDictionary *dict = @{kMessageParameter: message,
+                           kBoolParameter:    @(boolPar),
+                           kRequestFormat:    @(XMLFormat)};
+    
+    return dict;
+}
+
+- (NSDictionary *)retrieveDataFromBinaryDataResponse:(NSData *)data
+{
+    NSDictionary *binaryDict = (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (!binaryDict) { return nil; }
+    
+    NSDictionary *dict = @{kMessageParameter: binaryDict[kMessageParameter],
+                           kBoolParameter:    binaryDict[kBoolParameter],
+                           kRequestFormat:    @(BinaryFormat)};
+    return dict;
 }
 
 @end
