@@ -14,7 +14,7 @@
 - (NSData *)createBinaryRepresentation
 {
     NSDictionary *dict = @{kMessageParameter: self.message,
-                           kBoolParameter   : self.boolParameter};
+                           kBoolParameter: self.boolParameter};
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
     if (data) {
@@ -27,7 +27,7 @@
 - (NSString *)createJSONRepresentation
 {
     NSDictionary *dict = @{kMessageParameter: self.message,
-                           kBoolParameter   : self.boolParameter};
+                           kBoolParameter: self.boolParameter};
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
@@ -36,12 +36,11 @@
     
     if (!jsonData) {
         NSLog(@"Got an error: %@", error);
+        return nil;
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         return [jsonString autorelease];
     }
-    
-    return nil;
 }
 
 - (NSString *)createXMLRepresentation

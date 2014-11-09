@@ -19,21 +19,11 @@
 @property (retain, nonatomic) IBOutlet UISegmentedControl *requestFormatControl;
 @property (retain, nonatomic) IBOutlet UIButton *sendButton;
 
+@property (retain, nonatomic) NSDateFormatter *dateFormatter;
+
 @end
 
 @implementation TDARequestSendingViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)dealloc
 {
@@ -43,46 +33,52 @@
     [_boolParameterSwitch release];
     [_requestFormatControl release];
     [_sendButton release];
+    [_dateFormatter release];
     [super dealloc];
+}
+
+- (NSDateFormatter *)dateFormatter
+{
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    }
+    
+    return _dateFormatter;
 }
 
 - (IBAction)sendButtonPressed:(UIButton *)sender
 {
     if ([self.messageTextField.text isEqualToString:@""] ||
         self.requestFormatControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
-        NSString *msg = @"Message field and Request Format are required";
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                         message:msg
+                                                         message:@"Message field and Request Format are required"
                                                         delegate:nil
                                                cancelButtonTitle:@"OK"
                                                otherButtonTitles:nil];
         [alert show];
         [alert release];
         return;
+    } else {
+        [[TDADataManager sharedInstance] addRequest:[self createRequestDictionary]];
+        
+        self.messageTextField.text = @"";
+        self.requestFormatControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     }
-    
-    [[TDADataManager sharedInstance] addRequest:[self createRequestDictionary]];
-    
-    self.messageTextField.text = @"";
-    self.requestFormatControl.selectedSegmentIndex = UISegmentedControlNoSegment;
 }
 
 - (NSDictionary *)createRequestDictionary
 {
-    RequestFormat format = self.requestFormatControl.selectedSegmentIndex;
+    TDARequestFormat format = self.requestFormatControl.selectedSegmentIndex;
     
     NSDate *today = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    NSString *currentTime = [self.dateFormatter stringFromDate:today];
     
-    NSString *currentTime = [dateFormatter stringFromDate:today];
-    [dateFormatter release];
-    
-    NSDictionary *dict = @{kBoolParameter   : self.boolParameterSwitch.isOn? @(1) : @(0),
+    NSDictionary *dict = @{kBoolParameter: self.boolParameterSwitch.isOn? @(1) : @(0),
                            kMessageParameter: self.messageTextField.text,
-                           kRequestFormat   : @(format),
-                           kRequestStatus   : @(Waiting),
-                           kRequestTime     : currentTime};
+                           kRequestFormat: @(format),
+                           kRequestStatus: @(Waiting),
+                           kRequestTime: currentTime};
     
     return dict;
 }

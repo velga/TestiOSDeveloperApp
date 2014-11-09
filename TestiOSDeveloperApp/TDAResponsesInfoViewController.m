@@ -37,18 +37,6 @@
     self.resievedDataTextView.text = [self.resievedDataTextView.text stringByAppendingString:time];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dealloc {
     [_resievedDataTextView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];

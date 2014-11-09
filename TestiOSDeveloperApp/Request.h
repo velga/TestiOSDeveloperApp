@@ -12,10 +12,10 @@
 
 @interface Request : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * boolParameter;
-@property (nonatomic, retain) NSString * message;
-@property (nonatomic, retain) NSNumber * requestFormat;
-@property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSString * time;
+@property (nonatomic, retain) NSNumber *boolParameter;
+@property (nonatomic, retain) NSString *message;
+@property (nonatomic, retain) NSNumber *requestFormat;
+@property (nonatomic, retain) NSNumber *status;
+@property (nonatomic, retain) NSString *time;
 
 @end

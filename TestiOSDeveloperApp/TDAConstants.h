@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum TDARequestFormat: NSInteger {
+typedef NS_ENUM(NSInteger, TDARequestFormat) {
     JSONFormat = 0,
     XMLFormat,
     BinaryFormat
-} RequestFormat;
+};
 
-typedef enum TDARequestStatus: NSInteger {
+typedef NS_ENUM(NSInteger, TDARequestStatus) {
     Waiting = 0,
     Sent,
-} RequestStatus;
+};
 
 extern NSString *const kServerURLString;
 

@@ -112,13 +112,13 @@
     NSArray *array = [self.managedObjectContext executeFetchRequest:fRequest error:&error];
     if (!array) {
         return;
-    }
-    
-    Request *request = array.firstObject;
-    [request setStatus:@(Sent)];
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Unable to save managed object context.");
-        NSLog(@"%@, %@", error, error.localizedDescription);
+    } else {
+        Request *request = array.firstObject;
+        [request setStatus:@(Sent)];
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Unable to save managed object context.");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+        }
     }
 }
 

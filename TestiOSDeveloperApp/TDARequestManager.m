@@ -32,11 +32,20 @@
     static TDARequestManager *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[TDARequestManager alloc] init] retain];
-        [sharedInstance startObservingReachability];
-        [sharedInstance connectWebSocet];
     });
     
     return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self startObservingReachability];
+        [self  connectWebSocet];
+    }
+    
+    return self;
 }
 
 - (NSOperationQueue *)operationQueue
@@ -82,7 +91,7 @@
 - (void)reachabilityChanged:(NSNotification *)note
 {
      Reachability* curReach = [note object];
-    if(curReach.currentReachabilityStatus == NotReachable) {
+    if (curReach.currentReachabilityStatus == NotReachable) {
         _hasInternetConnection = NO;
         [self.operationQueue setSuspended:YES];
     } else {
@@ -205,6 +214,8 @@
 
 - (BOOL)isXMLFormat:(NSString *)string
 {
+    NSAssert(!string.length, @"String is empty");
+    
     NSString *firstLetter = [string substringToIndex:1];
     NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
     if ([firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"]) { return YES; }
@@ -227,18 +238,18 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                         options:kNilOptions
-                                                           error:&error] ;
+                                                             options:kNilOptions
+                                                               error:&error];
     
     if (!jsonDict) {
         NSLog(@"%@", error.localizedDescription);
         return nil;
+    } else {
+        NSDictionary *dict = @{kMessageParameter: jsonDict[kMessageParameter],
+                               kBoolParameter: jsonDict[kBoolParameter],
+                               kRequestFormat: @(JSONFormat)};
+        return dict;
     }
-    
-    NSDictionary *dict = @{kMessageParameter: jsonDict[kMessageParameter],
-                           kBoolParameter:    jsonDict[kBoolParameter],
-                           kRequestFormat:    @(JSONFormat)};
-    return dict;
 }
 
 - (NSDictionary *)retrieveDataFromXMLResponse:(NSString *)xmlString
@@ -249,15 +260,15 @@
     if (!xmlDict) {
         NSLog(@"%@", parseError.localizedDescription);
         return nil;
+    } else {
+        NSString *message = [[[xmlDict objectForKey:@"item"] objectForKey:kMessageParameter] objectForKey:@"text"];
+        NSInteger boolPar = [[[[xmlDict objectForKey:@"item"] objectForKey:kBoolParameter] objectForKey:@"text"] integerValue];
+        NSDictionary *dict = @{kMessageParameter: message,
+                               kBoolParameter: @(boolPar),
+                               kRequestFormat: @(XMLFormat)};
+        
+        return dict;
     }
-    
-    NSString *message = [[[xmlDict objectForKey:@"item"] objectForKey:kMessageParameter] objectForKey:@"text"];
-    NSInteger boolPar = [[[[xmlDict objectForKey:@"item"] objectForKey:kBoolParameter] objectForKey:@"text"] integerValue];
-    NSDictionary *dict = @{kMessageParameter: message,
-                           kBoolParameter:    @(boolPar),
-                           kRequestFormat:    @(XMLFormat)};
-    
-    return dict;
 }
 
 - (NSDictionary *)retrieveDataFromBinaryDataResponse:(NSData *)data
@@ -266,8 +277,8 @@
     if (!binaryDict) { return nil; }
     
     NSDictionary *dict = @{kMessageParameter: binaryDict[kMessageParameter],
-                           kBoolParameter:    binaryDict[kBoolParameter],
-                           kRequestFormat:    @(BinaryFormat)};
+                           kBoolParameter: binaryDict[kBoolParameter],
+                           kRequestFormat: @(BinaryFormat)};
     return dict;
 }
 

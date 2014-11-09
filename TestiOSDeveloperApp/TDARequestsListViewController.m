@@ -31,12 +31,6 @@
              @"Unresolved error %@\n%@", [error localizedDescription], [error userInfo]);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)dealloc
 {
     [_fetchedResultsController release];
@@ -50,7 +44,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"requestInfoCell";
-    TDARequestInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    TDARequestInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (!cell) {
         cell = [[[TDARequestInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
@@ -70,9 +64,9 @@
     cell.reqStatusLabel.text = [self getRequestStatusString:[request.status integerValue]];
 }
 
-- (NSString *)getRequestFormatString:(RequestFormat)format
+- (NSString *)getRequestFormatString:(TDARequestFormat)format
 {
-    NSString *formatString = @"";
+    NSString *formatString = nil;
     
     switch (format) {
         case JSONFormat:
@@ -95,9 +89,9 @@
     return formatString;
 }
 
-- (NSString *)getRequestStatusString:(RequestStatus)status
+- (NSString *)getRequestStatusString:(TDARequestStatus)status
 {
-    NSString *statusString = @"";
+    NSString *statusString = nil;
     
     switch (status) {
         case Waiting:
@@ -124,7 +118,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *sections = [self.fetchedResultsController sections];
-    id<NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
     
     return [sectionInfo numberOfObjects];
 }
