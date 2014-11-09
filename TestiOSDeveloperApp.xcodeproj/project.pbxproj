@@ -20,7 +20,6 @@
 		99869F001A0A53F6009F9456 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99869EFF1A0A53F6009F9456 /* Images.xcassets */; };
 		99869F031A0A53F6009F9456 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99869F011A0A53F6009F9456 /* LaunchScreen.xib */; };
 		99869F0F1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99869F0E1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m */; };
-		998C53CE1A0E9EAC005D7279 /* NSManagedObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 998C53CD1A0E9EAC005D7279 /* NSManagedObject+Utilities.m */; };
 		99F2E3A41A0B7A6500CB1156 /* TDARequestsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */; };
 		99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */; };
 		99F2E3A91A0B8D5500CB1156 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F2E3A81A0B8D5500CB1156 /* CoreData.framework */; };
@@ -28,6 +27,8 @@
 		99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3B81A0BC88F00CB1156 /* TDARequestSendingViewController.m */; };
 		99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */; };
 		99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */; };
+		99FF67971A0EABA600606E10 /* Request+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FF67961A0EABA600606E10 /* Request+Utilities.m */; };
+		99FF67991A0ECEA800606E10 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99FF67981A0ECEA800606E10 /* SystemConfiguration.framework */; };
 		D6D074E32B74D7F00A112CD7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E3F39BA16FD6744E93684 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +65,6 @@
 		99869F081A0A53F6009F9456 /* TestiOSDeveloperAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestiOSDeveloperAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99869F0D1A0A53F6009F9456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99869F0E1A0A53F6009F9456 /* TestiOSDeveloperAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestiOSDeveloperAppTests.m; sourceTree = "<group>"; };
-		998C53CC1A0E9EAC005D7279 /* NSManagedObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Utilities.h"; sourceTree = "<group>"; };
-		998C53CD1A0E9EAC005D7279 /* NSManagedObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Utilities.m"; sourceTree = "<group>"; };
 		99F2E3A21A0B7A6500CB1156 /* TDARequestsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestsListViewController.h; sourceTree = "<group>"; };
 		99F2E3A31A0B7A6500CB1156 /* TDARequestsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestsListViewController.m; sourceTree = "<group>"; };
 		99F2E3A61A0B85A500CB1156 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -78,6 +77,9 @@
 		99F2E3BB1A0BC91000CB1156 /* TDAResponsesInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAResponsesInfoViewController.m; sourceTree = "<group>"; };
 		99F2E3BD1A0BFAEF00CB1156 /* TDARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDARequestManager.h; sourceTree = "<group>"; };
 		99F2E3BE1A0BFAEF00CB1156 /* TDARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDARequestManager.m; sourceTree = "<group>"; };
+		99FF67951A0EABA600606E10 /* Request+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Request+Utilities.h"; sourceTree = "<group>"; };
+		99FF67961A0EABA600606E10 /* Request+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Request+Utilities.m"; sourceTree = "<group>"; };
+		99FF67981A0ECEA800606E10 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CA3E3F39BA16FD6744E93684 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D7907485BE67F037008CB4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99FF67991A0ECEA800606E10 /* SystemConfiguration.framework in Frameworks */,
 				997BBF1C1A0D1E21002A91F3 /* Foundation.framework in Frameworks */,
 				997BBF1A1A0D1E1B002A91F3 /* Security.framework in Frameworks */,
 				997BBF181A0D1E0F002A91F3 /* CFNetwork.framework in Frameworks */,
@@ -109,6 +112,7 @@
 		040D6679E9B9B65857E9EEC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99FF67981A0ECEA800606E10 /* SystemConfiguration.framework */,
 				997BBF1B1A0D1E21002A91F3 /* Foundation.framework */,
 				997BBF191A0D1E1B002A91F3 /* Security.framework */,
 				997BBF171A0D1E0F002A91F3 /* CFNetwork.framework */,
@@ -199,8 +203,8 @@
 				99F2E3A51A0B85A500CB1156 /* Model.xcdatamodeld */,
 				997BBF0F1A0CFDD5002A91F3 /* Request.h */,
 				997BBF101A0CFDD5002A91F3 /* Request.m */,
-				998C53CC1A0E9EAC005D7279 /* NSManagedObject+Utilities.h */,
-				998C53CD1A0E9EAC005D7279 /* NSManagedObject+Utilities.m */,
+				99FF67951A0EABA600606E10 /* Request+Utilities.h */,
+				99FF67961A0EABA600606E10 /* Request+Utilities.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -351,7 +355,6 @@
 			files = (
 				997BBF111A0CFDD5002A91F3 /* Request.m in Sources */,
 				99F2E3A71A0B85A500CB1156 /* Model.xcdatamodeld in Sources */,
-				998C53CE1A0E9EAC005D7279 /* NSManagedObject+Utilities.m in Sources */,
 				99869EF81A0A53F6009F9456 /* TDAAppDelegate.m in Sources */,
 				99F2E3BC1A0BC91000CB1156 /* TDAResponsesInfoViewController.m in Sources */,
 				997BBF141A0D091A002A91F3 /* TDARequestInfoCell.m in Sources */,
@@ -361,6 +364,7 @@
 				997BBF0E1A0CF4DE002A91F3 /* TDAConstants.m in Sources */,
 				99F2E3BF1A0BFAEF00CB1156 /* TDARequestManager.m in Sources */,
 				99F2E3B91A0BC88F00CB1156 /* TDARequestSendingViewController.m in Sources */,
+				99FF67971A0EABA600606E10 /* Request+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

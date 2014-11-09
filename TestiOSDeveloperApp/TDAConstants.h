@@ -21,8 +21,13 @@ typedef enum TDARequestStatus: NSInteger {
 
 extern NSString *const kServerURLString;
 
+extern NSString *const kResponseNotification;
+
 extern NSString *const kBoolParameter;
 extern NSString *const kMessageParameter;
 extern NSString *const kRequestFormat;
 extern NSString *const kRequestStatus;
 extern NSString *const kRequestTime;
+
+extern NSString *const kResponseTime;
+extern NSString *const kResponseObject;

@@ -176,6 +176,7 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
     NSLog(@"Received \"%@\"", message);
+    [self sendResponseNotification:(id)message];
     
     if ([message isKindOfClass:[NSData class]]) {
         [self sendResponseDictionaryToCoreData:[self retrieveDataFromBinaryDataResponse:(NSData *)message]];
@@ -190,6 +191,13 @@
     }
 }
 
+- (void)sendResponseNotification:(id)response
+{
+    NSDictionary *dict = @{kResponseTime:   [self currentTime],
+                           kResponseObject: response};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kResponseNotification object:nil userInfo:dict];
+}
+
 - (void)sendResponseDictionaryToCoreData:(NSDictionary *)dict
 {
     [[TDADataManager sharedInstance] changeRequestStatus:dict];
@@ -201,6 +209,17 @@
     NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
     if ([firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"]) { return YES; }
     return NO;
+}
+
+- (NSString *)currentTime
+{
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    
+    NSString *currentTime = [dateFormatter stringFromDate:today];
+    [dateFormatter release];
+    return currentTime;
 }
 
 - (NSDictionary *)retrieveDataFromJSONResponse:(NSString *)jsonString

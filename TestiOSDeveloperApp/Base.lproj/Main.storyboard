@@ -305,9 +305,26 @@
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GOK-hY-8Uh">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jua-an-wJ8">
+                                <rect key="frame" x="8" y="0.0" width="284" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="j6t-fX-Trm" firstAttribute="top" secondItem="Jua-an-wJ8" secondAttribute="bottom" id="7B3-sX-zr8"/>
+                            <constraint firstItem="Jua-an-wJ8" firstAttribute="top" secondItem="nBk-lc-jYp" secondAttribute="bottom" id="MT6-a7-h2P"/>
+                            <constraint firstItem="Jua-an-wJ8" firstAttribute="leading" secondItem="GOK-hY-8Uh" secondAttribute="leading" constant="8" id="WNV-mF-3OR"/>
+                            <constraint firstAttribute="trailing" secondItem="Jua-an-wJ8" secondAttribute="trailing" constant="8" id="fDI-sp-rwJ"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="resievedDataTextView" destination="Jua-an-wJ8" id="cZb-TK-RjD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITp-nC-FtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
