@@ -17,24 +17,24 @@
 
 @implementation TDAResponsesInfoViewController
 
-- (instancetype)init
+- (void)awakeFromNib
 {
-    self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleResponseNotification:)
-                                                     name:kResponseNotification
-                                                   object:nil];
-    }
+    [super awakeFromNib];
     
-    return self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleResponseNotification:)
+                                                 name:kResponseNotification
+                                               object:nil];
 }
 
 - (void)handleResponseNotification:(NSNotification *)note
 {
     NSDictionary *userInfo = note.userInfo;
     NSString *time = userInfo[kResponseTime];
-    self.resievedDataTextView.text = [self.resievedDataTextView.text stringByAppendingString:time];
+    id response = userInfo[kResponseObject];
+    
+    NSString *responseString = [NSString stringWithFormat:@"%@: %@\n", time, response];
+    self.resievedDataTextView.text = [self.resievedDataTextView.text stringByAppendingString:responseString];
 }
 
 - (void)dealloc {

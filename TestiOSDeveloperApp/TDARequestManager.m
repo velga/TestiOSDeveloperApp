@@ -17,6 +17,7 @@
 @interface TDARequestManager () <SRWebSocketDelegate>
 
 @property (retain, nonatomic) NSOperationQueue *operationQueue;
+@property (retain, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -58,6 +59,16 @@
     return _operationQueue;
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    }
+    
+    return _dateFormatter;
+}
+
 - (void)startObservingCoreDataChanges
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,6 +81,7 @@
 {
     [_webSocket release];
     [_operationQueue release];
+    [_dateFormatter release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
@@ -214,7 +226,7 @@
 
 - (BOOL)isXMLFormat:(NSString *)string
 {
-    NSAssert(!string.length, @"String is empty");
+    NSAssert(string.length, @"String is empty");
     
     NSString *firstLetter = [string substringToIndex:1];
     NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
@@ -225,11 +237,8 @@
 - (NSString *)currentTime
 {
     NSDate *today = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
     
-    NSString *currentTime = [dateFormatter stringFromDate:today];
-    [dateFormatter release];
+    NSString *currentTime = [self.dateFormatter stringFromDate:today];
     return currentTime;
 }
 
