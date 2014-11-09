@@ -72,6 +72,8 @@
 
 - (IBAction)sendButtonPressed:(UIButton *)sender
 {
+    [self.view endEditing:YES];
+    
     if ([self.messageTextField.text isEqualToString:@""] ||
         self.requestFormatControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
