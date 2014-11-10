@@ -42,8 +42,10 @@
 {
     self = [super init];
     if (self) {
+        //start checking Internet connection
         [self startObservingReachability];
-        [self  connectWebSocet];
+        //use SocketRocket library to connect web socket
+        [self connectWebSocet];
     }
     
     return self;
@@ -63,7 +65,7 @@
 {
     if (!_dateFormatter) {
         _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        _dateFormatter.timeStyle = NSDateFormatterMediumStyle;
     }
     
     return _dateFormatter;
@@ -119,34 +121,39 @@
 {
     _webSocket.delegate = nil;
     [_webSocket close];
-    [_webSocket release];
     
     NSURL *url = [NSURL URLWithString:kServerURLString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     _webSocket = [[SRWebSocket alloc] initWithURLRequest:request];
     _webSocket.delegate = self;
-    
     [_webSocket open];
     
+    //send notification about current connection status
     [self sendConnectionStatusNotification:@"Opening connection"];
 }
 
+//here we deal with objects been added to Core Data and trying to send them to the server
 - (void)handleDataModelChange:(NSNotification *)note
 {
+    //objects being added to Core Data
     NSSet *insertedObjects = [note userInfo][NSInsertedObjectsKey];
     
     [insertedObjects enumerateObjectsUsingBlock:^(Request *request, BOOL *stop) {
+        //use __block self to avoid retain circle
         __block TDARequestManager *blockSelf = self;
         if (!blockSelf) { return; }
+        //here we add operation which would send data to server into operation queue
         [self.operationQueue addOperationWithBlock:^{
             [blockSelf sendDataToServer:request];
         }];
     }];
 }
 
+//method to send data to server using SocketRocket library
 - (void)sendDataToServer:(Request *)request
 {
+    //send notification about object we are trying to send to server
     [self sendRequestNotification:request];
     
     switch ([request.requestFormat integerValue]) {
@@ -179,7 +186,9 @@
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
+    //send notification about current connection status
     [self sendConnectionStatusNotification:@"Connected"];
+    //start operation queue if it was suspended
     [self.operationQueue setSuspended:NO];
 }
 
@@ -189,35 +198,46 @@
     [self sendErrorNotification: errorInfo];
     
     if (_hasInternetConnection) {
+        //trying to recconect webSocket
         [self connectWebSocet];
     } else {
+        //send notification about current connection status
         [self sendConnectionStatusNotification:@"Connection failded"];
     }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 {
+    //send notification about current connection status
     [self sendConnectionStatusNotification:@"Closed"];
     [self connectWebSocet];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
+    //send notification with received object
     [self sendResponseNotification:message];
     
+    NSDictionary *dict;
+    //here we check in which format we received response
     if ([message isKindOfClass:[NSData class]]) {
-        [self sendResponseDictionaryToCoreData:[self retrieveDataFromBinaryDataResponse:(NSData *)message]];
+        dict = [self retrieveDataFromBinaryDataResponse:(NSData *)message];
     } else if ([message isKindOfClass:[NSString class]]) {
         if ([self isXMLFormat:message]) {
-            [self sendResponseDictionaryToCoreData:[self retrieveDataFromXMLResponse:(NSString *)message]];
+            dict = [self retrieveDataFromXMLResponse:(NSString *)message];
         } else {
-            [self sendResponseDictionaryToCoreData:[self retrieveDataFromJSONResponse:(NSString *)message]];
+            dict = [self retrieveDataFromJSONResponse:(NSString *)message];
         }
     } else {
         NSAssert(false, @"Unexpected response class");
     }
+    
+    if (dict) {
+        [self sendResponseDictionaryToCoreData:dict];
+    }
 }
 
+//send dictionary to CoreData to chacge status of Request object
 - (void)sendResponseDictionaryToCoreData:(NSDictionary *)dict
 {
     [[TDADataManager sharedInstance] changeRequestStatus:dict];
@@ -232,6 +252,7 @@
     return [firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"];
 }
 
+//parse json response into dictionary
 - (NSDictionary *)retrieveDataFromJSONResponse:(NSString *)jsonString
 {
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -251,6 +272,7 @@
     }
 }
 
+//parse xml response into dictionary
 - (NSDictionary *)retrieveDataFromXMLResponse:(NSString *)xmlString
 {
     NSError *parseError = nil;
@@ -270,6 +292,7 @@
     }
 }
 
+//parse binary response into dictionary
 - (NSDictionary *)retrieveDataFromBinaryDataResponse:(NSData *)data
 {
     NSDictionary *binaryDict = (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -284,6 +307,7 @@
 
 #pragma mark - Notifications
 
+//send notification with Request object
 - (void)sendRequestNotification:(Request *)request
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
@@ -293,6 +317,7 @@
     }];
 }
 
+//send notification with response object
 - (void)sendResponseNotification:(id)response
 {
     NSDictionary *dict = @{kResponseTime: [self currentTime],
@@ -300,6 +325,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kResponseNotification object:nil userInfo:dict];
 }
 
+//send notification about current connection status
 - (void)sendConnectionStatusNotification:(NSString *)status
 {
     NSDictionary *dict = @{kChangesTime: [self currentTime],
@@ -308,6 +334,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kConnectionChangedNotification object:nil userInfo:dict];
 }
 
+//send notification with web socket error information
 - (void)sendErrorNotification:(NSString *)error
 {
     NSDictionary *dict = @{kErrorTime: [self currentTime],
@@ -316,6 +343,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kErrorNotification object:nil userInfo:dict];
 }
 
+//get current time using NSDateFormatter
 - (NSString *)currentTime
 {
     NSDate *today = [NSDate date];

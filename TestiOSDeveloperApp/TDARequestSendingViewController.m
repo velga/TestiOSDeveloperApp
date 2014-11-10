@@ -29,6 +29,7 @@
 {
     [super awakeFromNib];
     
+    //start receiving notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleConnectionChanges:)
                                                  name:kConnectionChangedNotification
@@ -79,6 +80,7 @@
         [alert release];
         return;
     } else {
+        //here we add entered user info into new Request object
         [[TDADataManager sharedInstance] addRequest:[self createRequestDictionary]];
         
         self.messageTextField.text = @"";
@@ -86,6 +88,8 @@
     }
 }
 
+///Creates dictionary with user data to add new Request object to data base
+///@return NSDictionary with full user information needed to create new Request object
 - (NSDictionary *)createRequestDictionary
 {
     TDARequestFormat format = (TDARequestFormat) self.requestFormatControl.selectedSegmentIndex;
@@ -139,7 +143,6 @@
     
     NSString *errorString = [NSString stringWithFormat:@"%@: %@\n", userInfo[kErrorTime], userInfo[kErrorInfo]];
     self.infoTextView.text = [self.infoTextView.text stringByAppendingString:errorString];
-
 }
 
 @end

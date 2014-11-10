@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+//This class does all work with server
 @interface TDARequestManager : NSObject
 
 + (TDARequestManager *)sharedInstance;
 
+///Use this method to start observing changes made in Core Data
 - (void)startObservingCoreDataChanges;
 
 @end

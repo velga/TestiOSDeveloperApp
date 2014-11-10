@@ -87,10 +87,10 @@
     Request *request = (Request *)[NSEntityDescription insertNewObjectForEntityForName:@"Request"
                                                                 inManagedObjectContext:self.managedObjectContext];
     
-    [request setBoolParameter:dict[kBoolParameter]];
-    [request setMessage:dict[kMessageParameter]];
-    [request setRequestFormat:dict[kRequestFormat]];
-    [request setTime:dict[kRequestTime]];
+    request.boolParameter = dict[kBoolParameter];
+    request.message = dict[kMessageParameter];
+    request.requestFormat = dict[kRequestFormat];
+    request.time = dict[kRequestTime];
     
     NSError *error;
     if (![[self managedObjectContext] save:&error]) {
@@ -100,19 +100,23 @@
 
 - (void)changeRequestStatus:(NSDictionary *)dict
 {
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Request" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Request"
+                                                         inManagedObjectContext:self.managedObjectContext];
     NSFetchRequest *fRequest = [[[NSFetchRequest alloc] init] autorelease];
-    [fRequest setEntity:entityDescription];
+    fRequest.entity = entityDescription;
     
+    //use NSPredicate to find object in the data base with parameters from the response
     NSPredicate *predicate = [NSPredicate predicateWithFormat: @"(message LIKE[c] %@) AND (boolParameter == %@) AND (requestFormat == %@)",
                               dict[kMessageParameter], dict[kBoolParameter], dict[kRequestFormat]];
     [fRequest setPredicate:predicate];
     
     NSError *error;
+    //array of objects which match our NSPredicate
     NSArray *array = [self.managedObjectContext executeFetchRequest:fRequest error:&error];
     if (!array) {
         return;
     } else {
+        //if we found more than one object with the same parameters, we use first object from this array
         Request *request = array.firstObject;
         [request setStatus:@(Sent)];
         if (![self.managedObjectContext save:&error]) {

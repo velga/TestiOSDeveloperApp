@@ -45,7 +45,8 @@
     TDARequestInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (!cell) {
-        cell = [[[TDARequestInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[[TDARequestInfoCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:cellIdentifier] autorelease];
     }
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -62,6 +63,9 @@
     cell.reqStatusLabel.text = [self getRequestStatusString:(TDARequestStatus) [request.status integerValue]];
 }
 
+///converts object's format TDARequestFormat field into NSString
+///@param Request's format
+///@return NSString representation of Request's fomat
 - (NSString *)getRequestFormatString:(TDARequestFormat)format
 {
     NSString *formatString = nil;
@@ -87,6 +91,9 @@
     return formatString;
 }
 
+///converts object's status TDARequestStatus field into NSString
+///@param Request's current status
+///@return NSString representation of Request's status
 - (NSString *)getRequestStatusString:(TDARequestStatus)status
 {
     NSString *statusString = nil;
@@ -116,7 +123,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *sections = [self.fetchedResultsController sections];
-    id <NSFetchedResultsSectionInfo> sectionInfo = sections[section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = sections[(NSUInteger) section];
     
     return [sectionInfo numberOfObjects];
 }
@@ -130,22 +137,24 @@
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Request"
                                                   inManagedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]];
-        [fetchRequest setEntity:entity];
+        fetchRequest.entity = entity;
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"time" ascending:NO];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sort];
-        [sort release];
+        fetchRequest.sortDescriptors = @[sort];
+        fetchRequest.fetchBatchSize = 20;
         
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                                                      managedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]
-                                                                                                        sectionNameKeyPath:nil
-                                                                                                                 cacheName:@"Root"] autorelease];
-        [fetchRequest release];
+        NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]
+                                                                    initWithFetchRequest:fetchRequest
+                                                                    managedObjectContext:[[TDADataManager sharedInstance] managedObjectContext]
+                                                                    sectionNameKeyPath:nil
+                                                                    cacheName:@"Root"];
         
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = self;
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
     }
     
     return _fetchedResultsController;

@@ -10,8 +10,4 @@
 
 @implementation TDARequestInfoCell
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 @end
