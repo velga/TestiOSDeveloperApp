@@ -11,7 +11,7 @@
 
 @interface TDAResponsesInfoViewController ()
 
-@property (retain, nonatomic) IBOutlet UITextView *resievedDataTextView;
+@property (assign, nonatomic) IBOutlet UITextView *resievedDataTextView;
 
 @end
 
@@ -38,7 +38,6 @@
 }
 
 - (void)dealloc {
-    [_resievedDataTextView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }

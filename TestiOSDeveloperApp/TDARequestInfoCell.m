@@ -12,10 +12,6 @@
 
 - (void)dealloc
 {
-    [_messageLabel release];
-    [_timeLabel release];
-    [_reqFormatLabel release];
-    [_reqStatusLabel release];
     [super dealloc];
 }
 @end

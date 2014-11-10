@@ -12,12 +12,12 @@
 
 @interface TDARequestSendingViewController ()
 
-@property (retain, nonatomic) IBOutlet UILabel *connectionStatusLabel;
-@property (retain, nonatomic) IBOutlet UITextView *infoTextView;
-@property (retain, nonatomic) IBOutlet UITextField *messageTextField;
-@property (retain, nonatomic) IBOutlet UISwitch *boolParameterSwitch;
-@property (retain, nonatomic) IBOutlet UISegmentedControl *requestFormatControl;
-@property (retain, nonatomic) IBOutlet UIButton *sendButton;
+@property (assign, nonatomic) IBOutlet UILabel *connectionStatusLabel;
+@property (assign, nonatomic) IBOutlet UITextView *infoTextView;
+@property (assign, nonatomic) IBOutlet UITextField *messageTextField;
+@property (assign, nonatomic) IBOutlet UISwitch *boolParameterSwitch;
+@property (assign, nonatomic) IBOutlet UISegmentedControl *requestFormatControl;
+@property (assign, nonatomic) IBOutlet UIButton *sendButton;
 
 @property (retain, nonatomic) NSDateFormatter *dateFormatter;
 
@@ -34,7 +34,7 @@
                                                  name:kConnectionChangedNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleSendedRequestNotification:)
+                                             selector:@selector(handleSentRequestNotification:)
                                                  name:kSendedRequestNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -49,12 +49,6 @@
 
 - (void)dealloc
 {
-    [_connectionStatusLabel release];
-    [_infoTextView release];
-    [_messageTextField release];
-    [_boolParameterSwitch release];
-    [_requestFormatControl release];
-    [_sendButton release];
     [_dateFormatter release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
@@ -94,7 +88,7 @@
 
 - (NSDictionary *)createRequestDictionary
 {
-    TDARequestFormat format = self.requestFormatControl.selectedSegmentIndex;
+    TDARequestFormat format = (TDARequestFormat) self.requestFormatControl.selectedSegmentIndex;
     
     NSDate *today = [NSDate date];
     NSString *currentTime = [self.dateFormatter stringFromDate:today];
@@ -122,13 +116,13 @@
     self.infoTextView.text = [self.infoTextView.text stringByAppendingString:connectioneString];
 }
 
-- (void)handleSendedRequestNotification:(NSNotification *)note
+- (void)handleSentRequestNotification:(NSNotification *)note
 {
     NSDictionary *userInfo = note.userInfo;
     
-    NSString *sendedString = [NSString stringWithFormat:@"%@: %@\n",
+    NSString *sentString = [NSString stringWithFormat:@"%@: %@\n",
                                    userInfo[kRequestTime], userInfo[kRequestObject]];
-    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:sendedString];
+    self.infoTextView.text = [self.infoTextView.text stringByAppendingString:sentString];
 }
 
 - (void)handleResponseNotification:(NSNotification *)note

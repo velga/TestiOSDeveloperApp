@@ -134,7 +134,7 @@
 
 - (void)handleDataModelChange:(NSNotification *)note
 {
-    NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
+    NSSet *insertedObjects = [note userInfo][NSInsertedObjectsKey];
     
     [insertedObjects enumerateObjectsUsingBlock:^(Request *request, BOOL *stop) {
         __block TDARequestManager *blockSelf = self;
@@ -203,7 +203,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
-    [self sendResponseNotification:(id)message];
+    [self sendResponseNotification:message];
     
     if ([message isKindOfClass:[NSData class]]) {
         [self sendResponseDictionaryToCoreData:[self retrieveDataFromBinaryDataResponse:(NSData *)message]];
@@ -229,8 +229,7 @@
     
     NSString *firstLetter = [string substringToIndex:1];
     NSString *lastLetter = [string substringFromIndex:(string.length - 1)];
-    if ([firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"]) { return YES; }
-    return NO;
+    return [firstLetter isEqualToString:@"<"] && [lastLetter isEqualToString:@">"];
 }
 
 - (NSDictionary *)retrieveDataFromJSONResponse:(NSString *)jsonString
@@ -238,7 +237,7 @@
     NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:kNilOptions
+                                                             options:(NSJSONReadingOptions) kNilOptions
                                                                error:&error];
     
     if (!jsonDict) {
@@ -261,8 +260,8 @@
         NSLog(@"%@", parseError.localizedDescription);
         return nil;
     } else {
-        NSString *message = [[[xmlDict objectForKey:@"item"] objectForKey:kMessageParameter] objectForKey:@"text"];
-        NSInteger boolPar = [[[[xmlDict objectForKey:@"item"] objectForKey:kBoolParameter] objectForKey:@"text"] integerValue];
+        NSString *message = [[xmlDict[@"item"] objectForKey:kMessageParameter] objectForKey:@"text"];
+        NSInteger boolPar = [[[xmlDict[@"item"] objectForKey:kBoolParameter] objectForKey:@"text"] integerValue];
         NSDictionary *dict = @{kMessageParameter: message,
                                kBoolParameter: @(boolPar),
                                kRequestFormat: @(XMLFormat)};

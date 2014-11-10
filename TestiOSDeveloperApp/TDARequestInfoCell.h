@@ -10,9 +10,9 @@
 
 @interface TDARequestInfoCell : UITableViewCell
 
-@property (retain, nonatomic) IBOutlet UILabel *messageLabel;
-@property (retain, nonatomic) IBOutlet UILabel *timeLabel;
-@property (retain, nonatomic) IBOutlet UILabel *reqFormatLabel;
-@property (retain, nonatomic) IBOutlet UILabel *reqStatusLabel;
+@property (assign, nonatomic) IBOutlet UILabel *messageLabel;
+@property (assign, nonatomic) IBOutlet UILabel *timeLabel;
+@property (assign, nonatomic) IBOutlet UILabel *reqFormatLabel;
+@property (assign, nonatomic) IBOutlet UILabel *reqStatusLabel;
 
 @end

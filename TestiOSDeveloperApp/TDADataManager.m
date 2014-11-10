@@ -122,4 +122,11 @@
     }
 }
 
+- (void)dealloc {
+    [_managedObjectContext release];
+    [_managedObjectModel release];
+    [_persistentStoreCoordinator release];
+    [super dealloc];
+}
+
 @end

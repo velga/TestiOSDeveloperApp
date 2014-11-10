@@ -11,11 +11,10 @@
 #import "TDARequestInfoCell.h"
 #import "Request.h"
 #import "TDAConstants.h"
-#import <CoreData/CoreData.h>
 
 @interface TDARequestsListViewController () <NSFetchedResultsControllerDelegate>
 
-@property (retain, nonatomic) IBOutlet UITableView *tableView;
+@property (assign, nonatomic) IBOutlet UITableView *tableView;
 @property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end
@@ -34,7 +33,6 @@
 - (void)dealloc
 {
     [_fetchedResultsController release];
-    [_tableView release];
     [super dealloc];
 }
 
@@ -60,8 +58,8 @@
     
     cell.messageLabel.text   = request.message;
     cell.timeLabel.text      = request.time;
-    cell.reqFormatLabel.text = [self getRequestFormatString:[request.requestFormat integerValue]];
-    cell.reqStatusLabel.text = [self getRequestStatusString:[request.status integerValue]];
+    cell.reqFormatLabel.text = [self getRequestFormatString:(TDARequestFormat) [request.requestFormat integerValue]];
+    cell.reqStatusLabel.text = [self getRequestStatusString:(TDARequestStatus) [request.status integerValue]];
 }
 
 - (NSString *)getRequestFormatString:(TDARequestFormat)format
@@ -118,7 +116,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *sections = [self.fetchedResultsController sections];
-    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = sections[section];
     
     return [sectionInfo numberOfObjects];
 }
@@ -135,7 +133,7 @@
         [fetchRequest setEntity:entity];
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"time" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sort];
         [sort release];
         
         [fetchRequest setFetchBatchSize:20];
@@ -173,11 +171,11 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -185,8 +183,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
